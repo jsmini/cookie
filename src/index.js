@@ -1,14 +1,49 @@
-import { yan } from './test.js';
+/**
+ * @class Cookies
+ */
+class Cookies {
+  constructor () {
+  }
 
-import yan2 from './test.js';
+  /*设置cookie*/
+  /**
+   * @param {string} name: cookie的key值
+   * @param {any} value: 保存的cookie值
+   * @param {number} day: 过期天数
+   * @memberof Cookies
+   */
+  setCookie (name, value, day) {
+      console.log('setting' + setting)
+      if (Object.prototype.toString.call(setting).slice(8, -1) === 'Object'){
+          for (var i in setting) {
+              var oDate = new Date();
+              oDate.setDate(oDate.getDate() + day);
+              document.cookie = i + '=' + setting[i] + ';expires=' + oDate;
+          }
+      }else{
+          var oDate = new Date();
+          oDate.setDate(oDate.getDate() + day);
+          document.cookie = name + '=' + value + ';expires=' + oDate;
+      }
+      
+  }
 
-console.log(yan);
-console.log(yan2);
+  /*获取cookie*/
+  getCookie (name) {
+      var arr = document.cookie.split('; ');
+      for (var i = 0; i < arr.length; i++) {
+          var arr2 = arr[i].split('=');
+          if (arr2[0] == name) {
+              return arr2[1];
+          }
+      }
+      return '';
+  }
 
-var a = 1 + 1;
-var b = a;
-console.log(a);
-console.log(b);
+  /*删除cookie*/
+  removeCookie (name) {
+      this.setCookie(name, 1, -1);
+  }
+}
 
-export const name = 'base';
-
+export default Cookies;
